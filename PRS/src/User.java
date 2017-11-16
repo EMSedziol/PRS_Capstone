@@ -111,12 +111,12 @@ public class User {
 		return "User [id=" + id
 				+ ", userName=" + userName
 				+ ", password=" + passWord
-				+ ", /nfirstName=" + firstName
+				+ ", firstName=" + firstName
 				+ ", lastName=" + lastName
-				+ ", /nphone=" + phone
+				+ ", phone=" + phone
 				+ ", email=" + email
 				+ ", reviewer=" + reviewer
-				+ ", /nadmin=" + admin
+				+ ", admin=" + admin
 				+ ", active=" + active + "]";
 	}
 	

@@ -3,44 +3,49 @@
 public class PRSApp {
 	static UserDB userDB = null;
 
-	public static void main(String[] args) {
+	public static void main(String[] args)  {
 		userDB = new UserDB(); // userDB is defined in this class, UserDB is defined in class UserDB
 		System.out.println("Add / Maintain Users");
-		
-//		Scanner sc = new Scanner(System.in);
-		// sc.close();
-		String choice = "";
-		while (!choice.equalsIgnoreCase("6")) {
-			displayMenu();
-			choice = Console.getString("Option: ");
-			if (choice.equalsIgnoreCase("1")) {
-				// display all users
-				for (User u:userDB.getUsers()) {
-					System.out.println(u.toString());
+
+		boolean successfulLogin = false;
+		successfulLogin = userLogIn();
+		if (successfulLogin != false) {
+			//		Scanner sc = new Scanner(System.in);
+			// sc.close();
+			String choice = "";
+			while (!choice.equalsIgnoreCase("6")) {
+				displayMenu();
+				choice = Console.getString("Option: ");
+				if (choice.equalsIgnoreCase("1")) {
+					// display all users
+					for (User u:userDB.getUsers()) {
+						System.out.println(u.toString());
+					}
 				}
+				else if (choice.equalsIgnoreCase("2")) {
+					// prompt for user name
+					// display user information
+					displayUserInfo();
+				}
+				else if (choice.equalsIgnoreCase("3")) {
+					// prompt and add new user
+					addUserToDB();
+				}
+				else if (choice.equalsIgnoreCase("4")) {
+					// delete user
+					deleteUserFromDB();
+				}
+				else if (choice.equalsIgnoreCase("5")) {
+					// display user information
+					// allow to be changed
+					// prompt to update
+					// update or go back to menu
+				}
+
+
 			}
-			else if (choice.equalsIgnoreCase("2")) {
-				// prompt for user name
-				// display user information
-				displayUserInfo();
-			}
-			else if (choice.equalsIgnoreCase("3")) {
-				// prompt and add new user
-				addUserToDB();
-			}
-			else if (choice.equalsIgnoreCase("4")) {
-				// delete user
-			}
-			else if (choice.equalsIgnoreCase("5")) {
-				// display user information
-				// allow to be changed
-				// prompt to update
-				// update or go back to menu
-			}
-			
-		
 		}
-		
+
 		System.out.println("Bye Bye");
 
 	}
@@ -70,11 +75,12 @@ public class PRSApp {
 		System.out.println("Admin:         " + u.isAdmin());
 		System.out.println("Active:        " + u.isActive());
 		System.out.println("");
-		Console.getString("Enter Exit to Continue");
+		Console.getString("Enter Exit and press [enter] to Continue");
 	}
 
 	public static void addUserToDB() {
-		int id = userDB.getNextId();
+		int id = UserDB.updateCount();
+		System.out.println(" count " + id);
 		String userName = Console.getString("User Name:");
 		String passWord = Console.getString("Password: ");
 		String firstName = Console.getString("First Name: ");
@@ -87,7 +93,40 @@ public class PRSApp {
 		
 		User u = new User(id, userName, passWord, firstName, lastName,
 				phone, email, reviewer, admin, active);
-		userDB.addUser(u);
+		UserDB.addUser(u);
 		System.out.println("user should have been added");
+	}
+	
+	public static void deleteUserFromDB() {
+		String userToDelete = Console.getString("User to be deleted: ");
+		System.out.println(" user entered " + userToDelete);
+		User u = userDB.getUserByName(userToDelete);
+		if (u != null ) {
+			userDB.deleteUser(u);
+			System.out.println("Delete user " + userToDelete);
+		}
+		else {
+			System.out.println("Didn't find username " + userToDelete);
+		}
+		String hault = Console.getString("what message was displayed");
+	}
+	
+	public static boolean userLogIn () {
+		
+		String userNameEntered = Console.getString("User Name: ");
+		String passwordEntered = Console.getString("Password: ");
+		
+		boolean successfulLogin = false;
+		for (User u:userDB.getUsers()) {
+			if ((u.getUserName().equals(userNameEntered)) && (u.getPassWord().equals(passwordEntered))) {
+				System.out.println("is this correct");
+				successfulLogin = true;
+			}
+		}
+		if (successfulLogin == true)
+			System.out.println(" login was successful");
+		else
+			System.out.println(" login failed");
+		return successfulLogin;
 	}
 }
