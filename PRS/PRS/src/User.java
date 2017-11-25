@@ -16,21 +16,6 @@ public class User {
 		passWord = "";
 	}
 	
-/*	public User(int id, String userName, String passWord, String firstName, String lastName, String phone, String email,
-			boolean reviewer, boolean admin, boolean active) {
-		super();
-		this.id = id;
-		this.userName = userName;
-		this.passWord = passWord;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phone = phone;
-		this.email = email;
-		this.reviewer = reviewer;
-		this.admin = admin;
-		this.active = active;
-	}*/
-	
 	public User(int id, String userName, String passWord, String firstName, String lastName,
 			String phone, String email, boolean reviewer, boolean admin, boolean active) {
 		setId(id);

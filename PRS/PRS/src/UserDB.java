@@ -1,4 +1,3 @@
-import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -21,7 +20,8 @@ public class UserDB {
 				"myles@sunshine.com", true, false, false));
 		
 		// The file name an path is hard coded, this can be changed in the future
-		Path userPath = Paths.get("c:\\Users\\sedzi\\JavaUsers.txt");
+		/* This works but commented out to test other parts of the app
+		 * Path userPath = Paths.get("c:\\Users\\sedzi\\JavaUsers.txt");
 		
 		try {
 			File userFile = userPath.toFile();
@@ -39,12 +39,11 @@ public class UserDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		System.out.println("Bye Bye");
+*/
 
 	}
 	
-	private static void parseLineAddToUserDB(String line){
+	/*private static void parseLineAddToUserDB(String line){
 		// takes a tab delimited file, parses the data and add's it into the ListArray
 		int id = updateCount();
 		
@@ -53,7 +52,7 @@ public class UserDB {
 		String passWord = fields[1];
 		String firstName = fields[2];
 		String lastName = fields[3];
-		String phone = fields[4]; // '/n' is at the beginning of the string
+		String phone = fields[4];
 		String email = fields[5];
 		Boolean reviewer = Boolean.valueOf(fields[6]);
 		Boolean admin = Boolean.valueOf(fields[7]);
@@ -64,13 +63,13 @@ public class UserDB {
 		addUser(u);
 		System.out.println("user " + userName + " added from a .txt file");
 	}
-	
+	*/
 	public static int updateCount() {
 		countDB++;
 		return countDB;
 	}
 	
-	public ArrayList<User> getUsers() {
+	public static ArrayList<User> getUsers() {
 		return users;
 	}
 	
@@ -99,4 +98,14 @@ public class UserDB {
 		return u;
 	}
 	
+	public User getLoginUser(String userNameEntered, String passwordEntered) {
+		User u = null;
+		for (User usr:users) {
+			if((usr.getUserName().equals(userNameEntered)) && (usr.getPassWord().equals(passwordEntered))) {
+				System.out.println("User is allowed to login");
+				u = usr;
+			}
+		}
+		return u;
+	}
 }
